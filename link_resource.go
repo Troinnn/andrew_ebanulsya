@@ -42,7 +42,7 @@ func (lr LinkResource) redirect(w http.ResponseWriter, r *http.Request) {
 	var link Link
 	err := find.Decode(&link)
 	if err != nil {
-		render.Status(r, http.StatusInternalServerError)
+		render.Status(r, http.StatusNotFound)
 		render.NoContent(w, r)
 		return
 	}
