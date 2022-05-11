@@ -23,9 +23,12 @@ func main() {
 		return
 	}
 
+	col := db.Collection("links")
 	linksResource := LinkResource{
-		col: *db.Collection("links"),
+		col: *col,
 	}
+
+	load_from_file(*col)
 
 	http.ListenAndServe(":8080", routers(linksResource))
 }
