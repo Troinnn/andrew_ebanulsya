@@ -33,7 +33,7 @@ func (lr LinkResource) newRedirect(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&link)
 	if err != nil {
 		render.Status(r, http.StatusBadRequest)
-		render.NoContent(w, r)
+		render.JSON(w, r, nil)
 		return
 	}
 
@@ -42,12 +42,12 @@ func (lr LinkResource) newRedirect(w http.ResponseWriter, r *http.Request) {
 	_, err = lr.col.InsertOne(ctx, link)
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
-		render.NoContent(w, r)
+		render.JSON(w, r, nil)
 		return
 	}
 
 	render.Status(r, http.StatusOK)
-	render.NoContent(w, r)
+	render.JSON(w, r, nil)
 }
 
 func (lr LinkResource) redirect(w http.ResponseWriter, r *http.Request) {
@@ -65,7 +65,7 @@ func (lr LinkResource) redirect(w http.ResponseWriter, r *http.Request) {
 	err := find.Decode(&link)
 	if err != nil {
 		render.Status(r, http.StatusNotFound)
-		render.NoContent(w, r)
+		render.JSON(w, r, nil)
 		return
 	}
 
@@ -79,7 +79,7 @@ func (lr LinkResource) redirects(w http.ResponseWriter, r *http.Request) {
 	find, err := lr.col.Find(ctx, bson.D{})
 	if err != nil {
 		render.Status(r, http.StatusInternalServerError)
-		render.NoContent(w, r)
+		render.JSON(w, r, nil)
 		return
 	}
 
@@ -90,7 +90,7 @@ func (lr LinkResource) redirects(w http.ResponseWriter, r *http.Request) {
 		err := find.Decode(&link)
 		if err != nil {
 			render.Status(r, http.StatusInternalServerError)
-			render.NoContent(w, r)
+			render.JSON(w, r, nil)
 			return
 		}
 		links = append(links, link)
