@@ -1,12 +1,12 @@
 package main
 
 import (
-	"github.com/go-chi/chi" //nolint:goimports
+	"github.com/go-chi/chi"
 	"net/http"
 )
 
 func main() {
-	http.ListenAndServe(":8080", routers()) //nolint:errcheck
+	http.ListenAndServe(":8080", routers())
 }
 
 func routers() chi.Router {
@@ -19,7 +19,7 @@ func routers() chi.Router {
 	r.Delete("/admin/redirects/{id}", deleteRedirect)
 
 	r.Get("/redirects", uredirect)
-	return r
+	return r //nolint:wsl
 }
 
 func uredirect(w http.ResponseWriter, r *http.Request) {
